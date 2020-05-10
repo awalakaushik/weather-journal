@@ -1,6 +1,9 @@
 /* Empty JS object to act as endpoint for all routes */
 projectData = {};
 
+// API Credentials
+const openWeatherApi = require('./api.json');
+
 // Express to run server and routes
 const express = require('express');
 
