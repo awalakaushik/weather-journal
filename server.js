@@ -10,6 +10,9 @@ const express = require('express');
 // Start up an instance of app
 const app = express();
 
+// require fetch
+const fetch = require("node-fetch");
+
 /* Dependencies */
 const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -46,14 +49,15 @@ app.post('/api/projectData', postProjectData);
  */
 
 function getProjectData (req, res) {
+    console.log(projectData);
     res.send(projectData);
 }
 
-async function postProjectData (req, ress) {
+async function postProjectData (req, res) {
     const data = req.body;
     
     // return if there is no post data
-    if (!data.zip && data.userFeeling) {
+    if (!data.zip || !data.userFeeling) {
         const error = "Invalid data: Zip and User Feeling are required!";
         console.log(error);
         res.send(error);
@@ -68,9 +72,10 @@ async function postProjectData (req, ress) {
         projectData = {
             zipCode: data.zip,
             userFeeling: data.userFeeling,
-            degreeFarenheit: tempInFahrenheit
+            tempInFarenheit: tempInFahrenheit
         };
-
+        
+        console.log(projectData);
         res.send(projectData);
     }
     catch (error) {
